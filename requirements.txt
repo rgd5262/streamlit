@@ -7,4 +7,5 @@ python-dotenv
 bs4
 langchain_core
 langchain_openai
-langchain_community
+langchain-community
+youtube-transcript-api
