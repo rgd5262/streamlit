@@ -2,6 +2,7 @@
 import traceback
 import streamlit as st
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_community.document_loaders import YoutubeLoader
 from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 import requests
@@ -21,8 +22,8 @@ SUMMARIZE_PROMPT = """다음 제공된 콘텐츠의 핵심 내용을 약 300자 
 """
 
 def init_page():
-    st.set_page_config(page_title="웹 사이트 요약기", page_icon="🤗")
-    st.header("웹 사이트 요약기 🤗")
+    st.set_page_config(page_title="유튜브 사이트 요약기", page_icon="🤗")
+    st.header("유튜브 사이트 요약기 🤗")
     st.sidebar.title("Options")
 
 def select_model(temperature = 0):
@@ -41,15 +42,10 @@ def init_chain():
     return chain
 
 def get_content(url):
-    with st.spinner('웹 사이트 정보 찾는중...'):
-        url = requests.get(url)
-        html = BeautifulSoup(url.text)
-        if html.main:
-            return html.main.text
-        elif html.article:
-            return html.article.text
-        else:
-            return html.body.text
+    with st.spinner('유튜브 정보 찾는중...'):
+        loader = YoutubeLoader.from_youtube_url(url,add_video_info=False, language=['ko','en'])
+        doc = loader.load()
+        return doc
 
 def main():
     init_page()
