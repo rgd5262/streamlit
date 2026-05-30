@@ -1,5 +1,7 @@
 streamlit
-langchain_core
-langchain_openai
+langchain-core
+langchain-openai
 tiktoken
 python-dotenv
+bs4
+
