@@ -1,0 +1,5 @@
+streamlit
+langchain_core
+langchain_openai
+tiktoken
+python-dotenv
